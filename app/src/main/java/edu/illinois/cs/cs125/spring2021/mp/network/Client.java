@@ -58,6 +58,7 @@ public final class Client {
       @NonNull final String semester,
       @NonNull final CourseClientCallbacks callbacks) {
     String url = CourseableApplication.SERVER_URL + "summary/" + year + "/" + semester;
+    Log.i("NetworkExample", "Request summaries from " + url);
     StringRequest summaryRequest =
         new StringRequest(
             Request.Method.GET,
@@ -65,6 +66,7 @@ public final class Client {
             response -> {
               try {
                 Summary[] courses = objectMapper.readValue(response, Summary[].class);
+                Log.i("NetworkExample", "getSummary returned " + courses.length + " courses");
                 callbacks.summaryResponse(year, semester, courses);
               } catch (JsonProcessingException e) {
                 e.printStackTrace();

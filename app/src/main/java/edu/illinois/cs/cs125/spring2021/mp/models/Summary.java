@@ -125,7 +125,11 @@ public class Summary implements SortedListAdapter.ViewModel {
   }
 
   /** Compares two things I presume. */
-  public static final Comparator<Summary> COMPARATOR = (courseModel1, courseModel2) -> 0;
+  public static final Comparator<Summary> COMPARATOR = (courseModel1, courseModel2) -> {
+    String firstCompare = courseModel1.department + " " + courseModel1.number + " " + courseModel1.title;
+    String secondCompare = courseModel2.department + " " + courseModel2.number + " " + courseModel2.title;
+    return firstCompare.compareTo(secondCompare);
+  };
 
   /**
    * Lists courses probably.
