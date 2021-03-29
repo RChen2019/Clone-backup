@@ -97,7 +97,7 @@ public final class MainActivity extends AppCompatActivity
    * Callback fired when the course list view component begins editing the list of visible courses.
    */
   @Override
-  public void onEditStarted() {}
+  public void onEditStarted() { }
 
   /**
    * Callback fired when the course list view component completes editing the list of visible
@@ -132,6 +132,7 @@ public final class MainActivity extends AppCompatActivity
    */
   @Override
   public boolean onQueryTextChange(final String query) {
+    listAdapter.edit().replaceAll(Summary.filter(courses, query)).commit();
     return true;
   }
 

@@ -148,10 +148,31 @@ public class Summary implements SortedListAdapter.ViewModel {
     if (courses.size() == 0) {
       return courses;
     }
+    String[] cases = text.split(" ");
+    String temptext = text;
+    if (cases.length > 1) {
+      temptext = cases[0];
+    }
+    for (int i = 0; i < cases.length; i++) {
+      System.out.println(cases[i]);
+    }
     for (int i = 0; i < courses.size(); i++) {
       Summary temp = courses.get(i);
-      if ((temp.number).contains(text) || (temp.title).toLowerCase().contains(text.toLowerCase())) {
+      if ((temp.number).contains(temptext) || (temp.title).toLowerCase().contains(temptext.toLowerCase())
+              || (temp.department).toLowerCase().contains(temptext.toLowerCase())) {
         clone.add(new Summary(temp.year, temp.semester, temp.department, temp.number, temp.title));
+      }
+    }
+    if (cases.length > 1) {
+      for (int j = 1; j < cases.length; j++) {
+        temptext = cases[j];
+        for (int i = clone.size() - 1; i >= 0; i--) {
+          Summary temp = clone.get(i);
+          if (!((temp.number).contains(temptext) || (temp.title).toLowerCase().contains(temptext.toLowerCase())
+                  || (temp.department).toLowerCase().contains(temptext.toLowerCase()))) {
+            clone.remove(i);
+          }
+        }
       }
     }
     return clone;
