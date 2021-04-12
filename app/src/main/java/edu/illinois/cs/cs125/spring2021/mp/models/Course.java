@@ -19,7 +19,7 @@ public class Course extends Summary {
   /**
    * Get description.
    *
-   * @return the description k
+   * @return the description
    */
   public final String getDescription() {
     return description;
