@@ -84,6 +84,10 @@ public final class Client {
     requestQueue.add(summaryRequest);
   }
 
+  /**
+   * @param summary
+   * @param callbacks
+   */
   public void getCourse(
       @NonNull final Summary summary, @NonNull final CourseClientCallbacks callbacks) {
     String url =
