@@ -7,7 +7,7 @@ import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import edu.illinois.cs.cs125.spring2021.mp.R;
@@ -151,9 +151,13 @@ public final class MainActivity extends AppCompatActivity
     Log.i(TAG, "OnCourseClicked");
     Intent courseIntent = new Intent(this, CourseActivity.class);
     ObjectMapper objectMapper = new ObjectMapper();
-    //String text = objectMapper.writeValueAsString(course);
 
-    //courseIntent.putExtra("COURSE", text);
+    try {
+      String text = objectMapper.writeValueAsString(course);
+      courseIntent.putExtra("COURSE", text);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
     startActivity(courseIntent);
   }
 }

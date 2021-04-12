@@ -5,7 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.illinois.cs.cs125.spring2021.mp.R;
 import edu.illinois.cs.cs125.spring2021.mp.application.CourseableApplication;
+import edu.illinois.cs.cs125.spring2021.mp.databinding.ActivityCourseBinding;
 import edu.illinois.cs.cs125.spring2021.mp.models.Course;
 import edu.illinois.cs.cs125.spring2021.mp.models.Summary;
 import edu.illinois.cs.cs125.spring2021.mp.network.Client;
@@ -13,19 +20,30 @@ import edu.illinois.cs.cs125.spring2021.mp.network.Client;
 public class CourseActivity extends AppCompatActivity implements Client.CourseClientCallbacks {
   @SuppressWarnings({"unused", "RedundantSuppression"})
   private static final String TAG = CourseActivity.class.getSimpleName();
+  // Binding to the layout in activity_main.xml
+  private ActivityCourseBinding binding;
 
   @Override
   protected void onCreate(@Nullable final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.i(TAG, "CourseActivity launched");
+    // Bind to the layout in activity_main.xml
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_course);
+    binding.title.setText("Hello foo");
 
+    ObjectMapper objectMapper = new ObjectMapper();
     Intent intent = getIntent();
     String course = intent.getStringExtra("COURSE");
-    CourseableApplication application = (CourseableApplication) getApplication();
-    Log.i("NetworkExample", "MainActivity getSummary");
-    //application.getCourseClient().getCourse(summary, this);
+    try {
+      Summary summary = objectMapper.readValue(course, Summary.class);
+      CourseableApplication application = (CourseableApplication) getApplication();
+      Log.i("NetworkExample", "MainActivity getSummary");
+      application.getCourseClient().getCourse(summary, this);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
   }
-    //Course courses = objectMapper.readValue(response, Course.class);
+
   @Override
   public void courseResponse(final Summary summary, final Course course) {}
 }
