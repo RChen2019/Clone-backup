@@ -85,24 +85,34 @@ public final class Client {
   }
 
   public void getCourse(
-          @NonNull final Summary summary,
-          @NonNull final CourseClientCallbacks callbacks) {
-    String url = CourseableApplication.SERVER_URL + "course/" + summary.getYear() + "/" + summary.getSemester() + "/" + summary.getDepartment() + "/" + summary.getNumber();
+      @NonNull final Summary summary, @NonNull final CourseClientCallbacks callbacks) {
+    String url =
+        CourseableApplication.SERVER_URL
+            + "course/"
+            + summary.getYear()
+            + "/"
+            + summary.getSemester()
+            + "/"
+            + summary.getDepartment()
+            + "/"
+            + summary.getNumber();
     Log.i("NetworkExample", "Request course from " + url);
     StringRequest courseRequest =
-            new StringRequest(
-                    Request.Method.GET,
-                    url,
-                    response -> {
-                      try {
-                        Course courses = objectMapper.readValue(response, Course.class);
-                        Log.i("NetworkExample", "getSummary returned " + courses.getDescription() + " courses");
-                        callbacks.courseResponse(summary, courses);
-                      } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                      }
-                    },
-                    error -> Log.e(TAG, error.toString()));
+        new StringRequest(
+            Request.Method.GET,
+            url,
+            response -> {
+              try {
+                Course courses = objectMapper.readValue(response, Course.class);
+                Log.i(
+                    "NetworkExample",
+                    "getSummary returned " + courses.getDescription() + " courses");
+                callbacks.courseResponse(summary, courses);
+              } catch (JsonProcessingException e) {
+                e.printStackTrace();
+              }
+            },
+            error -> Log.e(TAG, error.toString()));
     requestQueue.add(courseRequest);
   }
 

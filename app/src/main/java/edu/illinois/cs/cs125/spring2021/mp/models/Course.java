@@ -6,14 +6,14 @@ public class Course extends Summary {
   /** Create an empty Summary. */
   @SuppressWarnings({"unused", "RedundantSuppression"})
   public Course() {}
+
   private String description;
   /**
    * Create a Summary with the provided fields.
    *
    * @param setDescription the desc for Summary
    */
-  public Course(
-      final String setDescription) {
+  public Course(final String setDescription) {
     description = setDescription;
   }
   /**

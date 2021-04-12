@@ -1,11 +1,14 @@
 package edu.illinois.cs.cs125.spring2021.mp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 import edu.illinois.cs.cs125.spring2021.mp.R;
 import edu.illinois.cs.cs125.spring2021.mp.adapters.CourseListAdapter;
@@ -144,5 +147,13 @@ public final class MainActivity extends AppCompatActivity
    * @param course the course that was clicked
    */
   @Override
-  public void onCourseClicked(final Summary course) {}
+  public void onCourseClicked(final Summary course) {
+    Log.i(TAG, "OnCourseClicked");
+    Intent courseIntent = new Intent(this, CourseActivity.class);
+    ObjectMapper objectMapper = new ObjectMapper();
+    //String text = objectMapper.writeValueAsString(course);
+
+    //courseIntent.putExtra("COURSE", text);
+    startActivity(courseIntent);
+  }
 }
