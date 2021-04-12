@@ -28,7 +28,11 @@ public class CourseableApplication extends Application {
     super.onCreate();
     Log.i("Startup", "CourseableApplication onCreate");
     client = Client.start();
-    new Thread(Server::start).start();
+    if (Build.FINGERPRINT.equals("robolectric")) {
+      Server.start();
+    } else {
+      new Thread(Server::start).start();
+    }
   }
 
   /**
