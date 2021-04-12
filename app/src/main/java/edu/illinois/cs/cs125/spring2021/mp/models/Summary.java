@@ -2,9 +2,7 @@ package edu.illinois.cs.cs125.spring2021.mp.models;
 
 import androidx.annotation.NonNull;
 import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -128,22 +126,25 @@ public class Summary implements SortedListAdapter.ViewModel {
   }
 
   /** Compares two things I presume. */
-  public static final Comparator<Summary> COMPARATOR = (courseModel1, courseModel2) -> {
-    String firstCompare = courseModel1.department + " " + courseModel1.number + " " + courseModel1.title;
-    String secondCompare = courseModel2.department + " " + courseModel2.number + " " + courseModel2.title;
-    return firstCompare.compareTo(secondCompare);
-  };
+  public static final Comparator<Summary> COMPARATOR =
+      (courseModel1, courseModel2) -> {
+        String firstCompare =
+            courseModel1.department + " " + courseModel1.number + " " + courseModel1.title;
+        String secondCompare =
+            courseModel2.department + " " + courseModel2.number + " " + courseModel2.title;
+        return firstCompare.compareTo(secondCompare);
+      };
 
   /**
-   * Lists courses probably.
+   * Lists courses.
    *
    * @param courses be the courses.
    * @param text be the text.
    * @return the courses guy.
    */
   public static List<Summary> filter(
-          @NonNull final List<Summary> courses, @NonNull final String text) {
-    //List<Summary> clone = Collections.emptyList();
+      @NonNull final List<Summary> courses, @NonNull final String text) {
+    // List<Summary> clone = Collections.emptyList();
     List<Summary> clone = new ArrayList<Summary>();
     if (courses.size() == 0) {
       return courses;
@@ -158,8 +159,9 @@ public class Summary implements SortedListAdapter.ViewModel {
     }
     for (int i = 0; i < courses.size(); i++) {
       Summary temp = courses.get(i);
-      if ((temp.number).contains(temptext) || (temp.title).toLowerCase().contains(temptext.toLowerCase())
-              || (temp.department).toLowerCase().contains(temptext.toLowerCase())) {
+      if ((temp.number).contains(temptext)
+          || (temp.title).toLowerCase().contains(temptext.toLowerCase())
+          || (temp.department).toLowerCase().contains(temptext.toLowerCase())) {
         clone.add(new Summary(temp.year, temp.semester, temp.department, temp.number, temp.title));
       }
     }
@@ -168,8 +170,9 @@ public class Summary implements SortedListAdapter.ViewModel {
         temptext = cases[j];
         for (int i = clone.size() - 1; i >= 0; i--) {
           Summary temp = clone.get(i);
-          if (!((temp.number).contains(temptext) || (temp.title).toLowerCase().contains(temptext.toLowerCase())
-                  || (temp.department).toLowerCase().contains(temptext.toLowerCase()))) {
+          if (!((temp.number).contains(temptext)
+              || (temp.title).toLowerCase().contains(temptext.toLowerCase())
+              || (temp.department).toLowerCase().contains(temptext.toLowerCase()))) {
             clone.remove(i);
           }
         }
